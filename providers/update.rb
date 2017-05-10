@@ -48,7 +48,8 @@ action :install do
         installer_type :custom
         options "/Q /norestart /noweb /Log \"#{install_log_file}\""
         timeout 3600 # 1 hour
-        success_codes [0, 127, 3010]
+        success_codes [0, 127, 3010] if respond_to? :success_codes
+        returns [0, 127, 3010] if respond_to? :returns
       end
 
       # Cleanup extracted ISO files
